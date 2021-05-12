@@ -9,3 +9,9 @@ follow - https://stackoverflow.com/a/67152755
 1. Add list of pin codes in `pin_codes` variable
 2. Update `telegram_token`
 3. Update `chat_ids`. You can list multiple chat ids to receive messages to multiple telegram recipients.
+
+# Running on ec2
+1. Copy script app.py to ec2
+2. Execute below command to run the code in background \
+`python3 app.py &`
+
