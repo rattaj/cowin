@@ -13,7 +13,7 @@ UTC = pytz.utc
 # of the specified location
 IST = pytz.timezone('Asia/Kolkata')
 
-logging.basicConfig(filename='/home/ec2-user/output.log',
+logging.basicConfig(filename='output.log',
                     filemode='a',
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                     datefmt='%H:%M:%S',
@@ -25,7 +25,7 @@ logger.info('Loading function.')
 
 pin_codes = ['411027']
 
-url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode={}&date={}'
+url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/calendarByPin?pincode={}&date={}'
 
 telegram_token = 'update me'
 
@@ -33,12 +33,16 @@ telegram_url = f"https://api.telegram.org/bot{telegram_token}"
 
 chat_ids = ['update me']
 
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
+    'Cache-Control': 'no-cache'}  # This is chrome, you can set whatever browser you like
+
 while True:
     output = []
     try:
 
         for pin_code in pin_codes:
-            response = requests.get(url.format(pin_code, datetime.now(IST).strftime('%d-%m-%Y')))
+            response = requests.get(url.format(pin_code, datetime.now(IST).strftime('%d-%m-%Y')), headers=headers)
 
             if response.ok:
 
